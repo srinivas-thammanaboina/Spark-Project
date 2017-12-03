@@ -1,6 +1,7 @@
 package com.myspark.basics
 
 import org.apache.spark._
+
 import org.apache.spark.SparkContext._
 import org.apache.log4j._
 
@@ -15,16 +16,24 @@ object MovieRatingRDD extends App{
  // Load up each line of the ratings data into an RDD
  val lines = sc.textFile("data/ml-100k/u.data")
  
+ 
  // Convert each line to a string, split it out by tabs, and extract the third field.
     // (The file format is userID, movieID, rating, timestamp)
  val ratings = lines.map(x=> x.toString().split("\t")(2))
+ 
+ ratings.collect().take(30).foreach(println)
 
+ 
  // Count up how many times each value (rating) occurs
  val results = ratings.countByValue()
+ 
+  
+ results.take(100).foreach(x=>println(x._2))
  
  // Sort the resulting map of (rating, count) tuples
  val sortedResults = results.toSeq.sortBy(_._1)
  
  // Print each result on its own line.
  sortedResults.foreach(println)
+ 
 }
