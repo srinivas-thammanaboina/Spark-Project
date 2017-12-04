@@ -9,14 +9,14 @@ import org.apache.spark.SparkContext
  * 
  * schema: auction id, bid amount, bid time from start of auction, bidder's user id, bider's rating, opening price, final price, item type, days to live
  */
-object auctionApp extends App{
+object auctionRDDApp extends App{
   
   Logger.getLogger("org").setLevel(Level.ERROR)
   
    
   val sc = new SparkContext("local[*]","Auction biddings")
   
-  val auctionRdd = sc.textFile("auctiondata.csv").map(_.split(","))
+  val auctionRdd = sc.textFile("data/auctiondata.csv").map(_.split(","))
   
   println("==== first element of auctionRdd ========")
   
@@ -44,7 +44,7 @@ object auctionApp extends App{
   
   val bids_per_auction = auctionRdd.map(x=> (x(0),1)).reduceByKey(_+_)
   
-  println(bids_per_auction)
+  println(bids_per_auction.foreach(println))
   
   println("===== across all actioned items what is the max number of bids =======")
   

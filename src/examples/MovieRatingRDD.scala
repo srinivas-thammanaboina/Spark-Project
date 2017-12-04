@@ -1,7 +1,6 @@
-package com.myspark.basics
+package examples
 
 import org.apache.spark._
-
 import org.apache.spark.SparkContext._
 import org.apache.log4j._
 
