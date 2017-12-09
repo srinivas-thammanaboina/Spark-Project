@@ -40,7 +40,8 @@ object MovieRatingRDD {
  
  val nameBroadCast = sc.broadcast(loadMovieNames)
  
-// nameBroadCast.value.foreach(println)
+
+ nameBroadCast.value.foreach(println)
  // Load up each line of the ratings data into an RDD
  val lines = sc.textFile("data/ml-100k/u.data")
  
@@ -55,6 +56,7 @@ object MovieRatingRDD {
   
   ratingwithNameOfMovie.foreach(println)
  
+  
   }
  
 }
